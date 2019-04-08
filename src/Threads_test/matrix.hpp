@@ -56,14 +56,14 @@ public:
 	* */
         virtual void run()
 	{
-		if (! in1->is_ready()) {
+		if (false != in1->is_ready()) {
 			in1->wait();
 		}
-		if (! in2->is_ready()) {
+		if (false != in2->is_ready()) {
 			in2->wait();
 		}
-		out.matrix = in1->matrix + in2->matrix;
-		out.set_ready();
+		out = in1 + in2;
+		out.set_ready(true);
 	}
 };
 
@@ -95,8 +95,8 @@ public:
 		if (! in2->is_ready()) {
 			in2->wait();
 		}
-		out.matrix = in1->matrix + in2->matrix;
-		out.set_ready();
+		out = in1 + in2;
+		out.set_ready(true);
 	}
 	
 	/**
