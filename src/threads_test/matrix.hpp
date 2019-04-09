@@ -84,9 +84,9 @@ public:
                 in2->lock();
                 out->lock();
                 for (int i = 0; i < SIZE; ++i) {
-                        for (int j = 0; j < SIZE; ++j) {
-                                out->m_matrix[i][j] = in1->m_matrix[i][j] +
-                                        in2->m_matrix[i][j];
+                    for (int j = 0; j < SIZE; ++j) {
+                        out->m_matrix[i][j] = in1->m_matrix[i][j] +
+                                in2->m_matrix[i][j];
                         }
                 }
                 in1->unlock();
