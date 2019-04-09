@@ -4,13 +4,13 @@
 
 ////////////////////thread class////////////////////
 
-th::thread::th::thread() : m_thread()
+threads::thread::thread() : m_thread()
 {}
 
-th::thread::~th::thread()
+threads::thread::~thread()
 {}
 
-void th::thread::create_thread()
+void threads::thread::create_thread()
 {
     pthread_attr_t attr;
     int r = pthread_attr_init(&attr);
@@ -22,17 +22,17 @@ void th::thread::create_thread()
     (void)r;
 }
 
-void th::thread::join_thread()
+void threads::thread::join_thread()
 {
     int r = pthread_join(m_thread, 0);
     assert(0 == r);
     (void)r;
 }
 
-void* th::thread::entry_point(void* p)
+void* threads::thread::entry_point(void* p)
 {
     assert(0 != p);
-    th::thread* t = reinterpret_cast<th::thread*>(p);
+    threads::thread* t = reinterpret_cast<threads::thread*>(p);
     assert(0 != t);
     t->run();
     return 0;

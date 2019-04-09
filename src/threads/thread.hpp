@@ -1,20 +1,24 @@
+#ifndef THREADS_THREAD_HPP
+#define THREADS_THREAD_HPP
+
+#include <pthread.h>
+
 /**
  * @file thread.hpp
- * @brief Contains prototype for thread class
+ * @brief Contains threads::thread class declaration
  */
-#ifndef THREAD_H
-#define THREAD_H
-//#include <pthread.h>
 
-namespace th
+/// TODO
+namespace threads
 {
-    class thread;
+        /**
+          @class thread
+          @brief abstract class incapsulating POSIX thread functionality
+          */
+        class thread;
 }
-/**
-  @class thread
-  @brief abstract class
- */
-class th::thread
+
+class threads::thread
 {
 public:
         /**
@@ -29,7 +33,7 @@ public:
         virtual ~thread();
         /**
          * @fn run
-         *@brief pure virtual function
+         * @brief 
          */
         virtual void run() = 0;
         /**
@@ -43,14 +47,8 @@ public:
          */
         void join_thread();
 private:
-        /**
-         * @fn entry_point
-         * @brief for thread
-         * @param obj
-         * @brief connecting function to thread
-         * */
         static void* entry_point(void* obj);
         pthread_t m_thread;
 };
 
-#endif
+#endif // THREADS_THREAD_HPP
