@@ -22,16 +22,19 @@ public:
         ~data();
         void print(const char* name) const;
         void init_identity();
-        void set_ready(bool r);
+        void set_ready();
+        void set_free();
         bool is_ready() const;
         void wait();
         void lock();
         void unlock();
-        // TODO
-        int m_matrix[SIZE][SIZE];
+        // getter, setter
+        int get_matrix_el(int, int) const;
+        void set_matrix_el(int, int, int);
 
 private:
         threads::mutex m_mutex;
+        int m_matrix[SIZE][SIZE];
         bool m_ready;
 };
 
@@ -63,38 +66,7 @@ public:
 	* @fn run
 	* @brief virtual function's overloading.
 	* */
-        virtual void run()
-	{
-                std::cout << "adder starts" << std::endl;
-                assert(0 != in1);
-                assert(0 != in2);
-                assert(0 != out);
-		if (! in1->is_ready()) {
-                        std::cout << "adder is waiting in1" << std::endl;
-			in1->wait();
-		}
-		if (! in2->is_ready()) {
-                        std::cout << "adder is waiting in2" << std::endl;
-			in2->wait();
-		}
-                assert(in1->is_ready());
-                assert(in2->is_ready());
-                std::cout << "adder starts calc" << std::endl;
-                in1->lock();
-                in2->lock();
-                out->lock();
-                for (int i = 0; i < SIZE; ++i) {
-                    for (int j = 0; j < SIZE; ++j) {
-                        out->m_matrix[i][j] = in1->m_matrix[i][j] +
-                                in2->m_matrix[i][j];
-                        }
-                }
-                in1->unlock();
-                in2->unlock();
-                std::cout << "adder set ready" << std::endl;
-		out->set_ready(true);
-                out->unlock();
-	}
+        virtual void run();
 };
 
 
@@ -116,7 +88,7 @@ public:
 	* @fn run
 	* @brief virtual function's overloading.
 	* */
-        void run();
+        virtual void run();
 };
 
 #endif
